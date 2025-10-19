@@ -1,0 +1,7 @@
+{
+  "name": "Copy of  Makgatholela Studio",
+  "description": "It's based on rapping and making beats and makgatholela studio have some of beats",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

@@ -1,0 +1,356 @@
+:root {
+  --background-dark: #1a1a1a;
+  --surface-color: #2a2a2a;
+  --panel-background: #202020;
+  --primary-accent: #00f2ea;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --border-color: #383838;
+  --danger-color: #ff4141;
+  --play-color: #4caf50;
+  --clip-color-1: #007acc;
+  --clip-color-2: #e65c00;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  background-color: var(--background-dark);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+#root {
+  width: 100%;
+  max-width: 1400px;
+  height: 95vh;
+  max-height: 850px;
+}
+
+.studio-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  padding: 0.75rem 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+  background-color: #181818;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+header h1 {
+  font-size: 1.2rem;
+  color: var(--primary-accent);
+  letter-spacing: 2px;
+}
+
+.transport-controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.panel {
+  background-color: var(--panel-background);
+  border-right: 1px solid var(--border-color);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.panel:last-child {
+  border-right: none;
+}
+
+.panel h2 {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Browser Panel --- */
+.browser-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.browser-panel li {
+  background-color: var(--surface-color);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.browser-panel li.selected {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 8px var(--primary-accent);
+}
+
+/* --- Playlist Panel --- */
+.playlist-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.track {
+  background-color: #2c2c2c;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+}
+.track-header {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    background-color: #333;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+.track-lane {
+  flex-grow: 1;
+  position: relative;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 100% 20px; /* Horizontal lines */
+}
+
+.audio-clip {
+  position: absolute;
+  top: 10%;
+  left: 2%;
+  width: 96%;
+  height: 80%;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.instrumental-clip {
+    background-color: var(--clip-color-1);
+}
+.vocal-clip {
+    background-color: var(--clip-color-2);
+}
+
+/* --- Mixer & Tools Panel --- */
+.mixer-tools-panel {
+  gap: 1.5rem;
+}
+
+.mixer-channels {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 1rem 0;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  height: 280px;
+}
+
+.mixer-channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+}
+.mixer-channel label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+.mixer-channel span {
+    font-size: 0.8rem;
+    background-color: #111;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* Vertical Sliders */
+input[type="range"].vertical-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 170px; /* This is the height */
+  height: 8px; /* This is the width */
+  transform-origin: 75px 75px;
+  transform: rotate(-90deg);
+  background: #333;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"].vertical-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 12px;
+  background: var(--text-primary);
+  cursor: pointer;
+  border-radius: 2px;
+  border: 1px solid #111;
+}
+
+input[type="range"].vertical-slider::-moz-range-thumb {
+  width: 20px;
+  height: 12px;
+  background: var(--text-primary);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.master-channel canvas {
+    border: 1px solid var(--border-color);
+    background: black;
+    height: 170px;
+    width: 60px;
+}
+
+/* --- Lyric Assistant --- */
+.lyric-assistant {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1; /* Takes remaining space */
+}
+
+.lyric-input {
+  display: flex;
+  gap: 0.5rem;
+}
+.lyric-input input {
+  flex-grow: 1;
+}
+.lyric-display {
+  flex-grow: 1;
+  background-color: var(--surface-color);
+  border-radius: 4px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  overflow-y: auto;
+}
+.lyric-display:not(:empty) {
+    color: var(--text-primary);
+}
+
+
+/* --- General UI Elements --- */
+button {
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Roboto Mono', monospace;
+  transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #3e3e3e;
+  border-color: #555;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary, .record-btn.recording {
+  background-color: var(--primary-accent);
+  color: #111;
+  font-weight: bold;
+  border-color: var(--primary-accent);
+}
+
+.record-btn.recording {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    color: white;
+}
+.record-btn.recording:hover {
+    background-color: #ff6a6a;
+}
+
+
+input[type="text"] {
+    background-color: #333;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 4px;
+    outline: none;
+}
+input[type="text"]:focus {
+    border-color: var(--primary-accent);
+}
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
